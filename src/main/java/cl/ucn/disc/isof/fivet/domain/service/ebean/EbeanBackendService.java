@@ -1,8 +1,13 @@
 package cl.ucn.disc.isof.fivet.domain.service.ebean;
 
+import cl.ucn.disc.isof.fivet.domain.model.Control;
 import cl.ucn.disc.isof.fivet.domain.model.Paciente;
 import cl.ucn.disc.isof.fivet.domain.model.Persona;
 import cl.ucn.disc.isof.fivet.domain.service.BackendService;
+
+import java.util.List;
+
+
 import com.avaje.ebean.EbeanServer;
 import com.avaje.ebean.EbeanServerFactory;
 import com.avaje.ebean.config.EncryptKey;
@@ -84,6 +89,48 @@ public class EbeanBackendService implements BackendService {
                 .where()
                 .eq("rut", rut)
                 .findUnique();
+    }
+
+    /**
+    * @return Pacientes
+    */
+    public List<Paciente> getPacientes(){
+        return this.ebeanServer.findList();
+    }
+
+    /**
+    * @param numero
+    * @return the paciente
+    */
+    public Paciente getPaciente(Integer numero){
+        return this.ebeanServer.find(Paciente.class)
+            .where()
+            .eq("numero", numero)
+            .findUnique();
+    }
+
+    /**
+     * @param rutVeterinario
+     * @return Controles
+     */
+    List<Control> getControlesVeterinario(String rutVeterinario){
+
+    }
+
+    /**
+     * @param nombre
+     * @return Pacientes por nombre
+     */
+    List<Paciente> getPacientesPorNombre(String nombre){
+
+    }
+
+    /**
+     * @param control
+     * @param numeroPaciente
+     */
+    void agregarControl(final Control control, final Integer numeroPaciente){
+
     }
 
     /**

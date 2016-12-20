@@ -52,7 +52,7 @@ public class Persona extends BaseModel {
      */
     @Getter
     @NotNull
-    private Tipo tipo;
+    private TipoPersona tipo;
 
     /**
      * Listado de pacientes
@@ -65,7 +65,7 @@ public class Persona extends BaseModel {
     /**
      * Tipo de rol
      */
-    public enum Tipo {
+    public enum TipoPersona {
         @EnumValue("Cliente")
         CLIENTE,
 

@@ -46,7 +46,7 @@ public class EbeanBackendService implements BackendService {
         config.addClass(BaseModel.class);
 
         config.addClass(Persona.class);
-        config.addClass(Persona.Tipo.class);
+        config.addClass(Persona.TipoPersona.class);
 
         config.addClass(Paciente.class);
         config.addClass(Paciente.Sexo.class);
@@ -95,7 +95,7 @@ public class EbeanBackendService implements BackendService {
     * @return Pacientes
     */
     public List<Paciente> getPacientes(){
-        return this.ebeanServer.findList();
+        return this.ebeanServer.find(Paciente.class).findList();
     }
 
     /**
@@ -113,24 +113,38 @@ public class EbeanBackendService implements BackendService {
      * @param rutVeterinario
      * @return Controles
      */
-    List<Control> getControlesVeterinario(String rutVeterinario){
-
+    public List<Control> getControlesVeterinario(String rutVeterinario){
+        return null;
     }
 
     /**
      * @param nombre
      * @return Pacientes por nombre
      */
-    List<Paciente> getPacientesPorNombre(String nombre){
-
+    public List<Paciente> getPacientesPorNombre(String nombre){
+        return this.ebeanServer.find(Paciente.class)
+                .where()
+                .eq("nombre", nombre)
+                .findList();
     }
 
     /**
      * @param control
      * @param numeroPaciente
      */
-    void agregarControl(final Control control, final Integer numeroPaciente){
+    public void agregarControl(Control control, Integer numeroPaciente){
+        final Paciente paciente = ebeanServer.find(Paciente.class)
+                .where()
+                .eq("numero", numeroPaciente)
+                .findUnique();
+        control = Control.builder()
+                .identificador("000AAA")
+                .peso(23.5)
+                .altura(123)
+                .diagnostico("Fractura pata izquierda")
+                .build();
 
+        control.insert();
     }
 
     /**

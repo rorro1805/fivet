@@ -25,7 +25,7 @@ public class Control extends BaseModel{
     @Getter
     @NotEmpty
     @Column(nullable = false)
-    private String id;
+    private String identificador;
 
     /**
      * Fecha en que se hizo el control
@@ -33,7 +33,6 @@ public class Control extends BaseModel{
     @Getter
     @Setter
     @Column
-    @NotNull
     private Date fecha;
 
     /**

@@ -20,7 +20,7 @@ public class Examen extends BaseModel{
     @Getter
     @NotEmpty
     @Column(nullable = false)
-    private String id;
+    private String identificador;
 
     /**
      * Nombre del examen

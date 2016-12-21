@@ -1,8 +1,13 @@
 package cl.ucn.disc.isof.fivet.domain.service.ebean;
 
+import cl.ucn.disc.isof.fivet.domain.model.Control;
 import cl.ucn.disc.isof.fivet.domain.model.Paciente;
 import cl.ucn.disc.isof.fivet.domain.model.Persona;
 import cl.ucn.disc.isof.fivet.domain.service.BackendService;
+
+import java.util.List;
+
+
 import com.avaje.ebean.EbeanServer;
 import com.avaje.ebean.EbeanServerFactory;
 import com.avaje.ebean.config.EncryptKey;
@@ -41,7 +46,7 @@ public class EbeanBackendService implements BackendService {
         config.addClass(BaseModel.class);
 
         config.addClass(Persona.class);
-        config.addClass(Persona.Tipo.class);
+        config.addClass(Persona.TipoPersona.class);
 
         config.addClass(Paciente.class);
         config.addClass(Paciente.Sexo.class);
@@ -84,6 +89,62 @@ public class EbeanBackendService implements BackendService {
                 .where()
                 .eq("rut", rut)
                 .findUnique();
+    }
+
+    /**
+    * @return Pacientes
+    */
+    public List<Paciente> getPacientes(){
+        return this.ebeanServer.find(Paciente.class).findList();
+    }
+
+    /**
+    * @param numero
+    * @return the paciente
+    */
+    public Paciente getPaciente(Integer numero){
+        return this.ebeanServer.find(Paciente.class)
+            .where()
+            .eq("numero", numero)
+            .findUnique();
+    }
+
+    /**
+     * @param rutVeterinario
+     * @return Controles
+     */
+    public List<Control> getControlesVeterinario(String rutVeterinario){
+        return null;
+    }
+
+    /**
+     * @param nombre
+     * @return Pacientes por nombre
+     */
+    public List<Paciente> getPacientesPorNombre(String nombre){
+        return this.ebeanServer.find(Paciente.class)
+                .where()
+                .eq("nombre", nombre)
+                .findList();
+    }
+
+    /**
+     * @param control
+     * @param numeroPaciente
+     */
+    public void agregarControl(Control control, Integer numeroPaciente){
+        final Paciente paciente = ebeanServer.find(Paciente.class)
+                .where()
+                .eq("numero", numeroPaciente)
+                .findUnique();
+        control = Control.builder()
+                .identificador("000AAA")
+                .peso(23.5)
+                .altura(123)
+                .diagnostico("Fractura pata izquierda")
+                .build();
+
+        control.insert();
     }
 
     /**
